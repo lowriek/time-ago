@@ -31,7 +31,7 @@ if ( ! class_exists('Time_Ago') ) {
 
   class Time_Ago {
     public function __construct() {
-      add_action( 'get_the_date', 'time_ago_format_date', 10, 3 );
+      add_action( 'get_the_date', array ($this, 'time_ago_format_date'), 10, 3 );
     }
 
     public function time_ago_format_date($the_date, $d, $post) {
@@ -51,4 +51,5 @@ if ( ! class_exists('Time_Ago') ) {
     } // end of time_ago_date_format
   } // end of class
 } // end of if ( ! class_exists('Time_Ago') )
-$Time_Ago = new Time_Ago();
+
+$Time_Ago = new Time_Ago(); // run it!
