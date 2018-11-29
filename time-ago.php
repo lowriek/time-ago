@@ -33,7 +33,7 @@ function time_ago_date_format($the_date, $d, $post) {
 		$post_id = $post->ID;
 	}
 
-  $datestring = human_time_diff( strtotime($the_date) , current_time('timestamp') ) . ' ago';
+  $datestring = human_time_diff( strtotime($the_date) ) . ' ago';
   $datestring = str_replace('min', 'minute', $datestring);
 
 	return $datestring;
