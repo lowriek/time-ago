@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name:  General Admission for Woocommerce
+Plugin Name:  Time Ago
 Plugin URI:   https://4thwall.io
-Description:  WordPress Plugin that extends Woocommerce to facilitate simple general admission events. Ideal for small nonprofits such as contemporary music ensembles and storefront theatres, or for speaking events.
+Description:  Simple WordPress Plugin changes the date format on posts and pages.
 Version:      1.0
 Author:       4th Wall Websites
 Author URI:   https://4thwall.io
@@ -24,3 +24,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with General Admission. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
+if ( !defined('ABSPATH') ) exit;
+
+function time_ago_date_format($the_date, $d, $post) {
+  if ( is_int( $post) ) {
+		$post_id = $post;
+	} else {
+		$post_id = $post->ID;
+	}
+
+  $datestring = human_time_diff( strtotime($the_date) , current_time('timestamp') ) . ' ago';
+  $datestring = str_replace('min', 'minute', $datestring);
+
+	return $datestring;
+}
+
+add_action( 'get_the_date', 'time_ago_date_format', 10, 3 );
