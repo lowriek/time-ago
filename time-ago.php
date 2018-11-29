@@ -41,7 +41,6 @@ if ( ! class_exists('Time_Ago') ) {
       } else {
         $post_id = $post->ID;
       }
-
       // subtract the post date from the current time
       $date_string = human_time_diff( strtotime($the_date) ) . ' ago';
       // make the string prettier
