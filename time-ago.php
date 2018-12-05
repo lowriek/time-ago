@@ -69,8 +69,7 @@ class Time_Ago_Settings {
   public function time_ago_register_settings() {
     register_setting(
       'time_ago_options',
-      'time_ago_options',
-      array( $this , 'time_ago_validate_options' )
+      'time_ago_options'
     );
     add_settings_section(
       'time_ago_section_general',
@@ -105,12 +104,12 @@ class Time_Ago_Settings {
   	$selected_option = isset( $options[$id] ) ? sanitize_text_field( $options[$id] ) : '';
 
   	$select_options = array(
-  		'default'   => 'Default',
-  		'no_minutes'     => 'No Minutes',
-  		'no_hours'      => 'No Hours',
-  		'no_days'    => 'No Days',
-  		'no_weeks' => 'No Weeks',
-  		'no_months'  => 'No Months',
+      'default'     => 'Default',
+  		'no_minutes'  => 'No Minutes',
+  		'no_hours'    => 'No Hours',
+  		'no_days'     => 'No Days',
+  		'no_weeks'    => 'No Weeks',
+  		'no_months'   => 'No Months'
   	);
 
   	echo '<select id="time_ago_options_'. $id .'" name="time_ago_options['. $id .']">';
@@ -124,11 +123,6 @@ class Time_Ago_Settings {
   	}
 
   	echo '</select> <label for="time_ago_options_'. $id .'">'. $label .'</label>';
-  }
-
-
-  public function time_ago_validate_options($input) {
-    return $input;
   }
 
   // this makes the submenu page in the dashboard
