@@ -31,11 +31,6 @@ if ( ! class_exists('Time_Ago') ) {
 
   class Time_Ago {
     public function __construct() {
-
-      // add Time Ago Settings submenu
-      add_action('admin_menu', array( $this , 'time_ago_settings_menu'));
-
-
       // add 'format date' action
       add_action( 'get_the_date', array ($this, 'time_ago_format_date'), 10, 3 );
     }
@@ -56,44 +51,48 @@ if ( ! class_exists('Time_Ago') ) {
 
       return $date_string;
     } // end of time_ago_date_format
-
-/*Settings functions*/
-    public function time_ago_settings_menu() {
-      add_submenu_page(
-          'options-general.php',
-          'Time Ago Options',
-          'Time Ago',
-          'manage_options',
-          'time_ago',
-          array($this, 'time_ago_settings_page_html')
-      );
-    }
-
-
-    public function time_ago_settings_page_html() {
-    // check user capabilities
-    if ( ! current_user_can('manage_options') ) return 'insufficient privileges';
-    ?>
-    <div class="wrap">
-        <h1><?= esc_html(get_admin_page_title()); ?></h1>
-        <form action="options.php" method="post">
-            <?php
-            // output security fields for the registered setting "wporg_options"
-            settings_fields('time_ago_options');
-            // output setting sections and their fields
-            // (sections are registered for "wporg", each field is registered to a specific section)
-            do_settings_sections('time_ago');
-            // output save settings button
-            submit_button('Save Settings');
-            ?>
-        </form>
-    </div>
-    <?php
-}
-
-
-
   } // end of class
 } // end of if ( ! class_exists('Time_Ago') )
 
 $Time_Ago = new Time_Ago(); // run it!
+
+class Time_Ago_Settings {
+  public function __construct(){
+    // add Time Ago Settings submenu
+    add_action('admin_menu', array( $this , 'time_ago_settings_menu'));
+  }
+  /*Settings functions*/
+      public function time_ago_settings_menu() {
+        add_submenu_page(
+            'options-general.php',
+            'Time Ago Options',
+            'Time Ago',
+            'manage_options',
+            'time_ago',
+            array($this, 'time_ago_settings_page_html')
+        );
+      }
+
+
+      public function time_ago_settings_page_html() {
+      // check user capabilities
+      if ( ! current_user_can('manage_options') ) return 'insufficient privileges';
+      ?>
+      <div class="wrap">
+          <h1><?= esc_html(get_admin_page_title()); ?></h1>
+          <form action="options.php" method="post">
+              <?php
+              // output security fields for the registered setting "wporg_options"
+              settings_fields('time_ago_options');
+              // output setting sections and their fields
+              // (sections are registered for "wporg", each field is registered to a specific section)
+              do_settings_sections('time_ago');
+              // output save settings button
+              submit_button('Save Settings');
+              ?>
+          </form>
+      </div>
+      <?php
+  }
+}
+$Time_Ago_settings = new Time_Ago_Settings();
