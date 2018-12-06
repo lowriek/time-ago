@@ -1,4 +1,4 @@
-<?php
+<?php // time ago settings class
 
 
 if ( !defined('ABSPATH') ) exit;
